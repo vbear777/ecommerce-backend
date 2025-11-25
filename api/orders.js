@@ -1,13 +1,24 @@
-import { createOrder, listOrders, getOrder } from "../lib/db.js";
-
+import { listOrders, getOrder, createOrder } from '../lib/db.js';
 
 export default async function handler(req, res) {
-if (req.method === "GET") {
-if (req.query.orderId) return res.status(200).json(await getOrder(req.query.orderId));
-return res.status(200).json(await listOrders());
-}
-if (req.method === "POST") {
-return res.status(201).json(await createOrder());
-}
-res.status(405).json({ error: "Method not allowed" });
+  try {
+    if (req.method === 'GET') {
+      const { orderId } = req.query || {};
+      if (orderId) {
+        const order = await getOrder(orderId);
+        if (!order) return res.status(404).json({ error: 'Order not found' });
+        return res.status(200).json(order);
+      }
+      const orders = await listOrders();
+      return res.status(200).json(orders);
+    }
+    if (req.method === 'POST') {
+      const order = await createOrder();
+      return res.status(201).json(order);
+    }
+    res.setHeader('Allow', 'GET,POST');
+    res.status(405).json({ error: 'Method not allowed' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 }

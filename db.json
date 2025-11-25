@@ -1,0 +1,23 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Example Product",
+      "priceCents": 10000,
+      "keywords": [
+        "example"
+      ],
+      "image": "/images/example.png"
+    }
+  ],
+  "cart": [],
+  "orders": [],
+  "deliveryOptions": [
+    {
+      "id": "1",
+      "name": "Standard",
+      "priceCents": 5000,
+      "deliveryDays": 3
+    }
+  ]
+}

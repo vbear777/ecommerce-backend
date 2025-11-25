@@ -1,3 +1,3 @@
-export async function GET(req) {
-  return Response.json({ message: "API is running" });
+export default function handler(req, res) {
+  res.status(200).json({ message: "API is running (Vercel serverless)" });
 }
