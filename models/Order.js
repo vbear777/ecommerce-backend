@@ -8,8 +8,11 @@ export const Order = sequelize.define('Order', {
     primaryKey: true
   },
   orderTimeMs: {
-    type: DataTypes.BIGINT,
-    allowNull: false
+     type: DataTypes.BIGINT,
+      allowNull: false,
+      get() {
+        return Number(this.getDataValue("orderTimeMs"));
+      }
   },
   totalCostCents: {
     type: DataTypes.INTEGER,
